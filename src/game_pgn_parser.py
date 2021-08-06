@@ -50,7 +50,7 @@ class GamesParser:
         self.find_worst_openings(all_chess_games)
 
         # How many of each opening was played
-        #print(self.__openings_played)
+        print(self.__openings_played)
 
     def find_worst_openings(self, all_chess_games):
         for game in all_chess_games:
@@ -92,9 +92,11 @@ class ChessGame:
        self.__result = (int(game_info.headers["Result"][0]) - self.__player_color) # Gets the first number in the string
        self.__opening_code = game_info.headers["ECO"]
        self.__moves = str(game_info.mainline_moves())
-       self.analyze_game(game_info, engine)
        self.__opening_name = self.get_general_opening_name(self.__opening_code, eco_info)
+       print(self.__opening_name)
        self.__opening_variation = self.get_opening_variation_and_moves(eco_info)
+       self.__opening_variation = self.get_opening_variation_and_moves(eco_info)
+       #self.analyze_game(game_info, engine)
 
     def analyze_game(self, game_info, engine):
         board = game_info.board()
@@ -142,9 +144,10 @@ class ChessGame:
     def get_general_opening_name(self, eco_code, eco_info):
         for opening in eco_info:
             if opening['eco'] == self.__opening_code:
-                return opening['name']
+                # Remove everything after the colon so it's not shown as a variation
+                return opening['name'].split(":", 1)[0]
 
 
 
     def get_opening_and_result(self):
-        return self.__opening_code, self.__result
+        return self.__opening_name, self.__result

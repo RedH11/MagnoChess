@@ -58,8 +58,8 @@ TEXTING
 
 M y
 A nalysis
-N eeds
-G alvanometric
+G ets
+N ecessary
 O penings
 
 
