@@ -1,0 +1,20 @@
+
+[Event "Rated Classical game"]
+[Site "https://lichess.org/SoNhC8mY"]
+[Date "2020.01.10"]
+[White "Aldo652"]
+[Black "RedH11"]
+[Result "1-0"]
+[UTCDate "2020.01.10"]
+[UTCTime "01:37:29"]
+[WhiteElo "1514"]
+[BlackElo "1500"]
+[WhiteRatingDiff "+5"]
+[BlackRatingDiff "-168"]
+[Variant "Standard"]
+[TimeControl "900+15"]
+[ECO "D00"]
+[Termination "Normal"]
+                
+1. d4  d5 2. e3  Nc6 3. g3  e5 4. Bg2  Be6 5. Ne2  Qd7 6. O-O  O-O-O 7. Nd2  Nf6 8. b3  exd4 9. exd4  Nxd4 10. Nxd4  Bc5 11. Bb2  g6 12. Nxe6  Qxe6 13. Re1  Qd6 14. c4  h5 15. cxd5  g5 16. Nc4  Qd7 17. Bxf6  Qg4 18. Qxg4+  hxg4 19. Bxh8  Rxh8 20. Ne5  f5 21. Rac1  Bb6 22. d6  f4 23. d7+  Kd8 24. Nf7+  Kxd7 25. Nxh8  fxg3 26. hxg3 1-0
+
