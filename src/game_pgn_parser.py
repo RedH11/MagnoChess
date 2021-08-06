@@ -6,48 +6,60 @@ from src import settings
 import json
 from difflib import SequenceMatcher
 
+# Compares how similar two strings are and returns a ratio score
 def similar(a, b):
     return SequenceMatcher(None, a, b).ratio()
 
+# Parses through the pgn of the user and retrieves the important information
 class GamesParser:
 
+    # Need to implement a system for efficient tracking of they they play it vs against it (prob just split the analysis)
+    # into when they play as black vs. as white
+
+    # A map of the name of the opening the user has played (and played against) and how many times they've played with it
     __openings_played = {}
 
+    # With the pgn and the player name, parses the pgn and passes it to functions to get relevant info
     def __init__(self, games_file, player_name):
 
+        # Gets the stockfish engine for analysis (different file for mac vs windows)
         engine = self.get_engine()  # Get's the engine based on the OS (windows/mac)
 
+        # Arrays of the chess games as pgn text form and as ChessGame classes
         all_games_pgn = [""]
         all_chess_games = []
 
+        # Opens the pgn
         with open(games_file) as png_info:
 
             cur_game = ""
-
+            # Goes line by line in the pgn, splitting each game into the all_games_pgn array
             for line in png_info:
                 if (line == "\n" and last_line == "\n"):
                     # Sections off an individual game (separated by two lines in the pgn)
                     all_games_pgn.append(cur_game)
-                    #print("Found a new game, the last one was", cur_game)
                     cur_game = ""
 
                 cur_game += line
                 last_line = line
 
+        # Removes the blank first part of the pgn
         all_games_pgn.pop(0)  # Removes the empty first game
 
         # Get the information for all the ECO codes
         eco_info = json.loads(open(os.getcwd() + "/src/resources/eco_names.json").read())
 
-        # Put all chess games into the array
+        # Put all chess games into the array by putting them in a temporary pgn file then making them the ChessGame class
         for game_pgn in all_games_pgn:
             with open("cur_game.pgn", "w") as cur_file:
                 cur_file.write(game_pgn)
                 cur_file.close()
-
             all_chess_games.append(ChessGame(open("cur_game.pgn"), player_name, engine, eco_info))
 
+        # Finds the openings the user loses the most as and against
         self.find_worst_openings(all_chess_games)
+        # Finds the worst moves the user makes commonly
+        self.find_worst_moves(all_chess_games)
 
         # How many of each opening was played
         print(self.__openings_played)
@@ -63,7 +75,9 @@ class GamesParser:
 
         # Sort the dictionary by the most played openings
         self.__openings_played = dict(sorted(self.__openings_played.items(), key= lambda item: item[1], reverse= True))
-    #def find_worst_moves(self, all_games_pgn, player_name, engine):
+
+    def find_worst_moves(self, all_games):
+        return ""
 
 
     def get_engine(self):
